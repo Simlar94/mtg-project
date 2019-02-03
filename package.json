@@ -1,0 +1,25 @@
+{
+  "name": "mtg-project",
+  "version": "1.0.0",
+  "description": "A Magic the Gathering project for self-training purposes. (Node.js, Express, MongoDB, HTML, JavaScript, CSS + more).",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Simlar94/mtg-project.git"
+  },
+  "author": "SL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Simlar94/mtg-project/issues"
+  },
+  "homepage": "https://github.com/Simlar94/mtg-project#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.9"
+  }
+}
