@@ -91,14 +91,14 @@ var CardSchema = new Schema({
 //Database model-variable. (Collection-name, Schema-structure).
 var Card = mongoose.model("Card", CardSchema);
 
-//Get route for /cards.
+//Get-route for /cards.
 app.get("/cards", function (req, res) {
     Card.find({}).then(function (cardData) {
         res.json(cardData);
     });
 });
 
-//Post route for /cards.
+//Post-route for /cards.
 app.post("/cards", function (req, res) {
     var cardInfo = new Card(req.body);
     cardInfo.save(function (err, cardData) {
@@ -106,6 +106,54 @@ app.post("/cards", function (req, res) {
     });
 });
 
+//Delete-route for /cards/delete. Looks for the value of the"id"-key in the body.
+//Then it deletes the object with the corresponding id from the database-collection with the mongoose-function "findOneAndRemove". 
+app.delete("/cards/delete", function (req, res) {
+    var objectId = req.body.id;
+
+    Card.findOneAndRemove({
+        _id: objectId
+    }, function (err) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send("Object with id:" + objectId + " deleted.");
+        }
+    });
+});
+
+//Put route for /cards/update.
+app.put("/cards/update", function (req, res) {
+    var objectId = req.body.id;
+    var cardName = req.body.card_name;
+    //var cardColor = req.body.card_color;
+    //var cardManacost = req.body.card_manacost;
+    var cardImg = req.body.card_img;
+    //var cardCreatureType = req.body.creature.creature_type;
+    //var cardCreaturePower = req.body.creature.stats.power;
+    //var cardCreatureTougness = req.body.creature.stats.toughness;
+    //var flavourText = req.body.flavour_text;
+    
+    console.log(cardImg);
+    
+    Card.findOneAndUpdate({
+        _id: objectId
+    }, {
+        card_name: cardName,
+        //card_color: cardColor,
+        //card_manacost: cardManacost,
+        card_img: cardImg,
+        //flavour_text: flavourText
+        
+    }, function(err){
+        if (err){
+            res.send(err);
+        } else {
+            res.send("Object with id:" + objectId + " updated.");
+        }
+    });
+      
+});
 
 //Declares which port the server is going to use.
 app.listen(process.env.PORT || port, () => console.log("Server is running on port: " + port + "."));
